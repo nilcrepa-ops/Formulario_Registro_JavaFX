@@ -42,7 +42,7 @@ public class Login_gridController implements Initializable {
     }
     
     @FXML
-    private void pulsarRegister(){ //Funcion para probar. Si pulsas register cambia la imagen (ahora no esta configurado)
+    private void pulsarRegister(){ //Funcion para probar. Si pulsas register cambia la imagen
         Image imgSi = new Image(getClass().getResourceAsStream("/img/segurata_si.png"));
         imgSegurata.setImage(imgSi);
     }
