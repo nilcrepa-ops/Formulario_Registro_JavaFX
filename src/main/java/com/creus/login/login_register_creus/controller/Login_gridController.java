@@ -23,27 +23,34 @@ import javafx.scene.media.MediaView;
 
 public class Login_gridController implements Initializable {
 
+    @FXML
     private ImageView imgSegurata;
     @FXML
     private Label lblInfo;
-    private TextField txtName;
-    private TextField txtId;
-    private TextField txtPostal;
-    private TextField txtBirth;
-    private TextField txtMail;
-    private Label lblDNI;
-    private Label lblPostal;
-    private Label lblBirth;
-    private Label lblMail;
-    private Label lblName;
-    private MediaView videoSeg;
     @FXML
-    private ImageView imgAvatar;
+    private TextField txtName;    // Faltaba @FXML
     @FXML
-    private TextField txtUser;
+    private TextField txtId;      // Faltaba @FXML
     @FXML
-    private PasswordField txtPass;
+    private TextField txtPostal;  // Faltaba @FXML
+    @FXML
+    private TextField txtBirth;   // Faltaba @FXML
+    @FXML
+    private TextField txtMail;    // Faltaba @FXML
+    @FXML
+    private Label lblDNI;         // Faltaba @FXML
+    @FXML
+    private Label lblPostal;      // Faltaba @FXML
+    @FXML
+    private Label lblBirth;       // Faltaba @FXML
+    @FXML
+    private Label lblMail;        // Faltaba @FXML
+    @FXML
+    private Label lblName;        // Faltaba @FXML
+    @FXML
+    private MediaView videoSeg;   // Faltaba @FXML
 
+    // ... resto de variables ...
     /**
      * Initializes the controller class.
      */
@@ -159,6 +166,7 @@ public class Login_gridController implements Initializable {
             lblInfo.setStyle("-fx-text-fill: red");
         }
     }
+
     private MediaPlayer mediaPlayer;
 
     @FXML
@@ -194,8 +202,7 @@ public class Login_gridController implements Initializable {
         txtPostal.setText("");
         txtBirth.setText("");
         txtMail.setText("");
+        lblInfo.setText("");
     }
-
-    
 
 }
