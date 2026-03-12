@@ -69,7 +69,7 @@ public class Login_gridController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             ClassFichero.createFile("RegistroUsuarios.txt");
-            String line = "name" + ";" + "id" + ";" + "postalCode" + ";" + "birthDate" + ";" + "mail" + "\n";
+            String line = "name" + ";" + "id" + ";" + "postalCode" + ";" + "birthDate" + ";" + "mail" + ";" + "password" + "\n";
             ClassFichero.writeFile(line);
         } catch (Exception e) {
             System.out.println("Error al crear fichero");
@@ -218,6 +218,7 @@ public class Login_gridController implements Initializable {
         txtBirth.setEditable(true);
         txtMail.setEditable(true);
         btnRegister.setDisable(false);
+        txtPass.setDisable(false);
 
         txtName.setText("");
         txtId.setText("");
