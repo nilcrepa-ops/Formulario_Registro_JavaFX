@@ -1,13 +1,15 @@
 package com.creus.login.login_register_creus.controller;
 
+import com.creus.login.login_register_creus.App;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import ficheros.ClassFichero;
 
-import com.creus.login.login_register_creus.model.ValidationsRescate;
+import com.creus.login.login_register_creus.model.UserDataValidations;
 import java.io.FileNotFoundException;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Button;
@@ -49,8 +51,17 @@ public class Login_gridController implements Initializable {
     private Label lblName;        // Faltaba @FXML
     @FXML
     private MediaView videoSeg;   // Faltaba @FXML
+    @FXML
+    private Button btnRegister;
+    @FXML
+    private Button btnLimpiar;
+    @FXML
+    private Hyperlink hLinkLogin;
+    @FXML
+    private Label lblPass;
+    @FXML
+    private PasswordField txtPass;
 
-    // ... resto de variables ...
     /**
      * Initializes the controller class.
      */
@@ -85,17 +96,17 @@ public class Login_gridController implements Initializable {
         String postalCode = txtPostal.getText();
         String birth = txtBirth.getText();
         String mail = txtMail.getText();
+        String pass = txtPass.getText();
 
         //Si hay algun campo vacio, lanzamos advertencia y cambiamos imagen
-        if (ValidationsRescate.comprobarCampos(name, id, postalCode, birth, mail)) {
+        if (UserDataValidations.comprobarCampos(name, id, postalCode, birth, mail, pass)) {
             lblInfo.setText(adverts[0]);
             lblInfo.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
             todoOk = false;
-
         }
-        if (!ValidationsRescate.checkName(name)) {
+        if (!UserDataValidations.checkName(name)) {
             lblName.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
@@ -103,7 +114,7 @@ public class Login_gridController implements Initializable {
             todoOk = false;
 
         }
-        if (!ValidationsRescate.checkId(id)) {
+        if (!UserDataValidations.checkId(id)) {
             lblDNI.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
@@ -111,7 +122,7 @@ public class Login_gridController implements Initializable {
             todoOk = false;
 
         }
-        if (!ValidationsRescate.checkPostalCode(postalCode)) {
+        if (!UserDataValidations.checkPostalCode(postalCode)) {
             lblPostal.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
@@ -119,7 +130,7 @@ public class Login_gridController implements Initializable {
             todoOk = false;
 
         }
-        if (!ValidationsRescate.checkFormatDate(birth)) {
+        if (!UserDataValidations.checkFormatDate(birth)) {
             lblBirth.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
@@ -127,13 +138,21 @@ public class Login_gridController implements Initializable {
             todoOk = false;
 
         }
-        if (!ValidationsRescate.checkEmail(mail)) {
+        if (!UserDataValidations.checkEmail(mail)) {
             lblMail.setStyle("-fx-text-fill: red");
             Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
             imgSegurata.setImage(imgNo);
             camposIncorrectos++;
             todoOk = false;
 
+        }
+
+        if (UserDataValidations.checkPassword(pass)) {
+            lblPass.setStyle("-fx-text-fill: red");
+            Image imgNo = new Image(getClass().getResourceAsStream("/img/segurata_no.png"));
+            imgSegurata.setImage(imgNo);
+            camposIncorrectos++;
+            todoOk = false;
         }
         if (todoOk) { //Si estan todos los campos bien "reseteamos" los labels a color negro
             lblInfo.setText(adverts[6]);
@@ -143,6 +162,7 @@ public class Login_gridController implements Initializable {
             lblPostal.setStyle("-fx-text-fill: black");
             lblBirth.setStyle("-fx-text-fill: black");
             lblMail.setStyle("-fx-text-fill: black");
+            lblPass.setStyle("-fx-text-fill: black");
 
             Image imgSi = new Image(getClass().getResourceAsStream("/img/segurata_si.png"));
             imgSegurata.setImage(imgSi);
@@ -152,9 +172,11 @@ public class Login_gridController implements Initializable {
             txtPostal.setEditable(false);
             txtBirth.setEditable(false);
             txtMail.setEditable(false);
+            txtPass.setEditable(false);
+            btnRegister.setDisable(true);
 
 //            try {
-            String line = name + ";" + id + ";" + postalCode + ";" + birth + ";" + mail + "\n";
+            String line = name + ";" + id + ";" + postalCode + ";" + birth + ";" + mail + ";" + pass + "\n";
             ClassFichero.writeFile(line);
 //            } catch (Exception e) {
 //                System.out.println("Error al crear el fichero");
@@ -169,7 +191,6 @@ public class Login_gridController implements Initializable {
 
     private MediaPlayer mediaPlayer;
 
-    @FXML
     public void pulsarMagico() {
         imgSegurata.setVisible(false);
         videoSeg.setVisible(true);
@@ -196,13 +217,29 @@ public class Login_gridController implements Initializable {
         txtPostal.setEditable(true);
         txtBirth.setEditable(true);
         txtMail.setEditable(true);
+        btnRegister.setDisable(false);
 
         txtName.setText("");
         txtId.setText("");
         txtPostal.setText("");
         txtBirth.setText("");
         txtMail.setText("");
+        txtPass.setText("");
         lblInfo.setText("");
+
+        Image imgNeutro = new Image(getClass().getResourceAsStream("/img/segurata.png"));
+        imgSegurata.setImage(imgNeutro);
+    }
+
+    @FXML
+    private void switchLogin(ActionEvent event) {
+        try {
+            // Reemplaza "nombre_de_tu_archivo" por el nombre del FXML al que quieres ir
+            // (sin la extensión .fxml)
+            App.setRoot("login_login");
+        } catch (Exception e) {
+            System.err.println("Error al cambiar de escena: " + e.getMessage());
+        }
     }
 
 }

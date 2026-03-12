@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Nil
  */
-public class ValidationsRescate {
+public class UserDataValidations {
 
     /**
      * * @param user
@@ -22,8 +22,8 @@ public class ValidationsRescate {
      * @param mail
      * @return true si hay algun campo vacio
      */
-    public static boolean comprobarCampos(String user, String id, String postalCode, String fecha, String mail) {
-        return user.isEmpty() || id.isEmpty() || postalCode.isEmpty() || fecha.isEmpty() || mail.isEmpty();
+    public static boolean comprobarCampos(String user, String id, String postalCode, String fecha, String mail, String pass) {
+        return user.isEmpty() || id.isEmpty() || postalCode.isEmpty() || fecha.isEmpty() || mail.isEmpty() || pass.isEmpty();
     }
 
     /**
@@ -219,5 +219,20 @@ public class ValidationsRescate {
         }
 
         return true;
+    }
+    
+    /**
+     * 
+     * @param pass
+     * @return true si el campo esta vacío
+     */
+    public static boolean checkPassword(String pass){
+        return pass.isEmpty();
+    }
+    
+    //FUNCIONES PANTALLA LOGIN
+    
+    public static boolean comprobarCamposLogin(String nombre, String pass){
+        return nombre.isEmpty() || pass.isEmpty();
     }
 }
