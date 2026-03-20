@@ -35,6 +35,12 @@ Cerrar NetBeans y volver a abrir, ya debería aparecer como ejecutable FXML y ab
             <artifactId>JavaApplicattionEjemploJAR.jar</artifactId>
             <version>13</version>
         </dependency>
+        <!--DEPENDENCIA SQLITE-->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

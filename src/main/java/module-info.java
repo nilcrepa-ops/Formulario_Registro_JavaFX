@@ -4,6 +4,7 @@ module com.creus.login.login_register_creus {
     requires java.base;
     requires javafx.media;
     requires JavaApplicattionEjemploJAR.jar;
+    requires java.sql;
 
     opens com.creus.login.login_register_creus.controller to javafx.fxml;
     exports com.creus.login.login_register_creus;
