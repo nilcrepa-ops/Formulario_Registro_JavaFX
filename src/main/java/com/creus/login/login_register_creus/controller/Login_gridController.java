@@ -26,6 +26,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Login_gridController implements Initializable {
 
     @FXML
@@ -177,8 +180,12 @@ public class Login_gridController implements Initializable {
             txtMail.setEditable(false);
             txtPass.setEditable(false);
             btnRegister.setDisable(true);
-
-            ConnectionBBDD.insertUser(id, name, postalCode, birth, mail, pass);
+            
+            //Registramos la fecha del registro
+            LocalDate localDate = LocalDate.now();
+            String date = localDate.toString();
+            
+            ConnectionBBDD.insertUser(id, name, postalCode, birth, mail, pass, date);
         }
 
         if (camposIncorrectos > 0) {

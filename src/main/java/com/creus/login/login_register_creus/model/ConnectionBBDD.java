@@ -6,11 +6,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
+
 public class ConnectionBBDD {
     private static final String URL = "jdbc:sqlite:RegisterBBDD.db";
     
-    public static void insertUser(String user_id, String name, String postal_code, String birth_date, String mail, String password){
-        String sql = "INSERT INTO usuarios(user_id, name, postal_code, birth_date, mail, password) VALUES(?, ?, ?, ?, ?, ?)";
+    public static void insertUser(String user_id, String name, String postal_code, String birth_date, String mail, String password, String date){
+        String sql = "INSERT INTO usuarios(user_id, name, postal_code, birth_date, mail, password, register_date) VALUES(?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DriverManager.getConnection(URL);
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -20,6 +22,7 @@ public class ConnectionBBDD {
             pstmt.setString(4, birth_date);
             pstmt.setString(5, mail);
             pstmt.setString(6, password);
+            pstmt.setString(7, date);
             pstmt.executeUpdate();
         } catch(SQLException e){
             System.out.println("Error al insertar en SQLite: " + e.getMessage());
